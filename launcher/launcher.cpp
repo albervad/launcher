@@ -100,6 +100,20 @@ void launcher::on_SettingsButton_clicked() const
 	ui.Tabs->setCurrentIndex(2);
 }
 
+void launcher::on_AddAppButton_clicked() const
+{
+	QProcess process;
+    process.startDetached("notepad");
+    process.waitForFinished(-1);
+}
+
+void launcher::on_AddGameButton_clicked() const
+{
+    QProcess process;
+    process.startDetached("notepad");
+    process.waitForFinished(-1);
+}
+
 void launcher::Add_App_Button(const string& name, const string& dir, const string& args, const string& type, const int n, const int& cont)
 {
     QPushButton* Button = nullptr;

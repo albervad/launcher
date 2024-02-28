@@ -46,6 +46,8 @@ static constexpr auto qt_meta_stringdata_CLASSlauncherENDCLASS = QtMocHelpers::s
     "on_SettingsButton_clicked",
     "on_SteamState_clicked",
     "checked",
+    "on_AddAppButton_clicked",
+    "on_AddGameButton_clicked",
     "Add_App_Button",
     "std::string",
     "name",
@@ -57,7 +59,7 @@ static constexpr auto qt_meta_stringdata_CLASSlauncherENDCLASS = QtMocHelpers::s
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSlauncherENDCLASS_t {
-    uint offsetsAndSizes[32];
+    uint offsetsAndSizes[36];
     char stringdata0[9];
     char stringdata1[11];
     char stringdata2[1];
@@ -66,14 +68,16 @@ struct qt_meta_stringdata_CLASSlauncherENDCLASS_t {
     char stringdata5[26];
     char stringdata6[22];
     char stringdata7[8];
-    char stringdata8[15];
-    char stringdata9[12];
-    char stringdata10[5];
-    char stringdata11[4];
+    char stringdata8[24];
+    char stringdata9[25];
+    char stringdata10[15];
+    char stringdata11[12];
     char stringdata12[5];
-    char stringdata13[5];
-    char stringdata14[2];
+    char stringdata13[4];
+    char stringdata14[5];
     char stringdata15[5];
+    char stringdata16[2];
+    char stringdata17[5];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSlauncherENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -87,14 +91,16 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSlauncherENDCLASS_t qt_meta_stri
         QT_MOC_LITERAL(66, 25),  // "on_SettingsButton_clicked"
         QT_MOC_LITERAL(92, 21),  // "on_SteamState_clicked"
         QT_MOC_LITERAL(114, 7),  // "checked"
-        QT_MOC_LITERAL(122, 14),  // "Add_App_Button"
-        QT_MOC_LITERAL(137, 11),  // "std::string"
-        QT_MOC_LITERAL(149, 4),  // "name"
-        QT_MOC_LITERAL(154, 3),  // "dir"
-        QT_MOC_LITERAL(158, 4),  // "args"
-        QT_MOC_LITERAL(163, 4),  // "type"
-        QT_MOC_LITERAL(168, 1),  // "n"
-        QT_MOC_LITERAL(170, 4)   // "cont"
+        QT_MOC_LITERAL(122, 23),  // "on_AddAppButton_clicked"
+        QT_MOC_LITERAL(146, 24),  // "on_AddGameButton_clicked"
+        QT_MOC_LITERAL(171, 14),  // "Add_App_Button"
+        QT_MOC_LITERAL(186, 11),  // "std::string"
+        QT_MOC_LITERAL(198, 4),  // "name"
+        QT_MOC_LITERAL(203, 3),  // "dir"
+        QT_MOC_LITERAL(207, 4),  // "args"
+        QT_MOC_LITERAL(212, 4),  // "type"
+        QT_MOC_LITERAL(217, 1),  // "n"
+        QT_MOC_LITERAL(219, 4)   // "cont"
     },
     "launcher",
     "f_showhide",
@@ -104,6 +110,8 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSlauncherENDCLASS_t qt_meta_stri
     "on_SettingsButton_clicked",
     "on_SteamState_clicked",
     "checked",
+    "on_AddAppButton_clicked",
+    "on_AddGameButton_clicked",
     "Add_App_Button",
     "std::string",
     "name",
@@ -123,7 +131,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSlauncherENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -131,12 +139,14 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSlauncherENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   50,    2, 0x0a,    1 /* Public */,
-       3,    0,   51,    2, 0x108,    2 /* Private | MethodIsConst  */,
-       4,    0,   52,    2, 0x108,    3 /* Private | MethodIsConst  */,
-       5,    0,   53,    2, 0x108,    4 /* Private | MethodIsConst  */,
-       6,    1,   54,    2, 0x108,    5 /* Private | MethodIsConst  */,
-       8,    6,   57,    2, 0x08,    7 /* Private */,
+       1,    0,   62,    2, 0x0a,    1 /* Public */,
+       3,    0,   63,    2, 0x108,    2 /* Private | MethodIsConst  */,
+       4,    0,   64,    2, 0x108,    3 /* Private | MethodIsConst  */,
+       5,    0,   65,    2, 0x108,    4 /* Private | MethodIsConst  */,
+       6,    1,   66,    2, 0x108,    5 /* Private | MethodIsConst  */,
+       8,    0,   69,    2, 0x108,    7 /* Private | MethodIsConst  */,
+       9,    0,   70,    2, 0x108,    8 /* Private | MethodIsConst  */,
+      10,    6,   71,    2, 0x08,    9 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -144,7 +154,9 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSlauncherENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,    7,
-    QMetaType::Void, 0x80000000 | 9, 0x80000000 | 9, 0x80000000 | 9, 0x80000000 | 9, QMetaType::Int, QMetaType::Int,   10,   11,   12,   13,   14,   15,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 11, 0x80000000 | 11, 0x80000000 | 11, 0x80000000 | 11, QMetaType::Int, QMetaType::Int,   12,   13,   14,   15,   16,   17,
 
        0        // eod
 };
@@ -169,6 +181,10 @@ Q_CONSTINIT const QMetaObject launcher::staticMetaObject = { {
         // method 'on_SteamState_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        // method 'on_AddAppButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_AddGameButton_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'Add_App_Button'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const std::string &, std::false_type>,
@@ -192,7 +208,9 @@ void launcher::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 2: _t->on_GamesButton_clicked(); break;
         case 3: _t->on_SettingsButton_clicked(); break;
         case 4: _t->on_SteamState_clicked((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 5: _t->Add_App_Button((*reinterpret_cast< std::add_pointer_t<std::string>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<std::string>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<std::string>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<std::string>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[6]))); break;
+        case 5: _t->on_AddAppButton_clicked(); break;
+        case 6: _t->on_AddGameButton_clicked(); break;
+        case 7: _t->Add_App_Button((*reinterpret_cast< std::add_pointer_t<std::string>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<std::string>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<std::string>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<std::string>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[6]))); break;
         default: ;
         }
     }
@@ -217,13 +235,13 @@ int launcher::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 8)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 6;
+        _id -= 8;
     }
     return _id;
 }

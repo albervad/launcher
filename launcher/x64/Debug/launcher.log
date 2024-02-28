@@ -1,4 +1,5 @@
-﻿  apps.cpp
+﻿  moc launcher.h
+  apps.cpp
   launcher.cpp
   main.cpp
   moc_launcher.cpp

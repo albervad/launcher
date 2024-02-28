@@ -28,6 +28,8 @@ private slots:
     void on_GamesButton_clicked() const;
     void on_SettingsButton_clicked() const;
     void on_SteamState_clicked(bool checked) const;
+    void on_AddAppButton_clicked() const;
+    void on_AddGameButton_clicked() const;
 	void Add_App_Button(const std::string& name, const std::string& dir, const std::string& args, const std::string& type, int n, const int& cont);
   
 private:
