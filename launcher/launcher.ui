@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
-    <height>539</height>
+    <width>769</width>
+    <height>306</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -165,6 +165,33 @@ border:  2px solid #0066cc;
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+font-weight: 600;
+font-size: 14px;
+color: #fff;
+background-color: #0066CC;
+border: 5px solid #0066cc;
+border-radius: 1px;
+text-transform: uppercase;
+}
+
+QPushButton:hover {
+background-color: #fff;
+color: #0066cc;
+border:  2px solid #0066cc;
+}</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
@@ -185,28 +212,8 @@ border:  2px solid #0066cc;
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="Apps" native="true">
-       <widget class="QWidget" name="gridLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>-40</x>
-          <y>0</y>
-          <width>887</width>
-          <height>261</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <widget class="QPushButton" name="pushButton_8">
-           <property name="text">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="Games" native="true"/>
+      <widget class="QWidget" name="Apps"/>
+      <widget class="QWidget" name="Games"/>
      </widget>
     </item>
    </layout>
