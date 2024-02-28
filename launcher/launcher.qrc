@@ -3,5 +3,6 @@
         <file>img/off.png</file>
         <file>img/on.png</file>
         <file>img/icono.ico</file>
+        <file>settings.png</file>
     </qresource>
 </RCC>

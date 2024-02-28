@@ -95,6 +95,11 @@ void launcher::on_GamesButton_clicked() const
     ui.Tabs->setCurrentIndex(1);
 }
 
+void launcher::on_SettingsButton_clicked() const
+{
+	ui.Tabs->setCurrentIndex(2);
+}
+
 void launcher::Add_App_Button(const string& name, const string& dir, const string& args, const string& type, const int n, const int& cont)
 {
     QPushButton* Button = nullptr;

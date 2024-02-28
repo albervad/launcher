@@ -34,10 +34,12 @@ public:
     QPushButton *GamesButton;
     QStackedWidget *Tabs;
     QWidget *Apps;
+	QWidget *Games;
+    QWidget* Settings;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayoutApps;
     QGridLayout* gridLayoutGames;
-    QWidget *Games;
+    QPushButton* SettingButton;
 
     void setupUi(QMainWindow *launcherClass)
     {
@@ -57,7 +59,6 @@ public:
         centralWidget->setStyleSheet(QString::fromUtf8(""));
         verticalLayout = new QVBoxLayout(centralWidget);
         verticalLayout->setSpacing(0);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName("verticalLayout");
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         widget = new QWidget(centralWidget);
@@ -81,18 +82,18 @@ public:
         SteamState->setSizePolicy(sizePolicy1);
         SteamState->setMinimumSize(QSize(100, 26));
         SteamState->setStyleSheet(QString::fromUtf8("QCheckBox::indicator {\n"
-"     width: 50px;\n"
-"     height: 50px;\n"
-" }\n"
-"\n"
-"  QCheckBox::indicator:checked\n"
-"  {\n"
-"    image: url(:/launcher/img/on.png);\n"
-"  }\n"
-"  QCheckBox::indicator:unchecked\n"
-"  {\n"
-"    image: url(:/launcher/img/off.png);\n"
-"  }"));
+		"     width: 50px;\n"
+		"     height: 50px;\n"
+		" }\n"
+		"\n"
+		"  QCheckBox::indicator:checked\n"
+		"  {\n"
+		"    image: url(:/launcher/img/on.png);\n"
+		"  }\n"
+		"  QCheckBox::indicator:unchecked\n"
+		"  {\n"
+		"    image: url(:/launcher/img/off.png);\n"
+		"  }"));
 
         horizontalLayout->addWidget(SteamState);
 
@@ -104,20 +105,20 @@ public:
         font.setKerning(false);
         AppsButton->setFont(font);
         AppsButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"font-weight: 600;\n"
-"font-size: 14px;\n"
-"color: #fff;\n"
-"background-color: #0066CC;\n"
-"border: 5px solid #0066cc;\n"
-"border-radius: 1px;\n"
-"text-transform: uppercase;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"background-color: #fff;\n"
-"color: #0066cc;\n"
-"border:  2px solid #0066cc;\n"
-"}"));
+			"font-weight: 600;\n"
+			"font-size: 14px;\n"
+			"color: #fff;\n"
+			"background-color: #0066CC;\n"
+			"border: 5px solid #0066cc;\n"
+			"border-radius: 1px;\n"
+			"text-transform: uppercase;\n"
+			"}\n"
+			"\n"
+			"QPushButton:hover {\n"
+			"background-color: #fff;\n"
+			"color: #0066cc;\n"
+			"border:  2px solid #0066cc;\n"
+			"}"));
 
         horizontalLayout->addWidget(AppsButton);
 
@@ -125,23 +126,43 @@ public:
         GamesButton->setObjectName("GamesButton");
         GamesButton->setMaximumSize(QSize(150, 16777215));
         GamesButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"font-weight: 600;\n"
-"font-size: 14px;\n"
-"color: #fff;\n"
-"background-color: #0066CC;\n"
-"border: 5px solid #0066cc;\n"
-"border-radius: 1px;\n"
-"text-transform: uppercase;\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"background-color: #fff;\n"
-"color: #0066cc;\n"
-"border:  2px solid #0066cc;\n"
-"}"));
+			"font-weight: 600;\n"
+			"font-size: 14px;\n"
+			"color: #fff;\n"
+			"background-color: #0066CC;\n"
+			"border: 5px solid #0066cc;\n"
+			"border-radius: 1px;\n"
+			"text-transform: uppercase;\n"
+			"}\n"
+			"\n"
+			"QPushButton:hover {\n"
+			"background-color: #fff;\n"
+			"color: #0066cc;\n"
+			"border:  2px solid #0066cc;\n"
+			"}"));
 
         horizontalLayout->addWidget(GamesButton);
 
+        SettingButton = new QPushButton(widget);
+        SettingButton->setObjectName("SettingsButton");
+        SettingButton->setMaximumSize(QSize(35, 35));
+        SettingButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+			"font-weight: 600;\n"
+			"font-size: 14px;\n"
+			"color: #fff;\n"
+			"background-color: #0066CC;\n"
+			"border: 5px solid #0066cc;\n"
+			"border-radius: 1px;\n"
+			"text-transform: uppercase;\n"
+			"}\n"
+			"\n"
+			"QPushButton:hover {\n"
+			"background-color: #fff;\n"
+			"color: #0066cc;\n"
+			"border:  2px solid #0066cc;\n"
+			"}"));
+
+        horizontalLayout->addWidget(SettingButton);
 
         verticalLayout->addWidget(widget);
 
@@ -155,9 +176,8 @@ public:
         Apps->setObjectName("Apps");
         gridLayoutApps = new QGridLayout(Apps);
         gridLayoutApps->setSpacing(6);
-        gridLayoutApps->setContentsMargins(11, 11, 11, 11);
+        gridLayoutApps->setContentsMargins(15, 15, 15, 15);
         gridLayoutApps->setObjectName("gridLayout");
-        gridLayoutApps->setContentsMargins(0, 0, 0, 0);
 
         Tabs->addWidget(Apps);
         Games = new QWidget();
@@ -165,9 +185,12 @@ public:
         Tabs->addWidget(Games);
         gridLayoutGames = new QGridLayout(Games);
         gridLayoutGames->setSpacing(6);
-        gridLayoutGames->setContentsMargins(11, 11, 11, 11);
+        gridLayoutGames->setContentsMargins(15, 15, 15, 15);
         gridLayoutGames->setObjectName("gridLayout");
-        gridLayoutGames->setContentsMargins(0, 0, 0, 0);
+
+        Settings = new QWidget();
+        Settings->setObjectName("Games");
+        Tabs->addWidget(Settings);
 
         verticalLayout->addWidget(Tabs);
 
@@ -187,6 +210,8 @@ public:
         SteamState->setText(QCoreApplication::translate("launcherClass", "STEAM", nullptr));
         AppsButton->setText(QCoreApplication::translate("launcherClass", "APPLICACIONES", nullptr));
         GamesButton->setText(QCoreApplication::translate("launcherClass", "JUEGOS", nullptr));
+        SettingButton->setIcon(QIcon(":/launcher/settings.png"));
+        SettingButton->setIconSize(QSize(25, 25));
     } // retranslateUi
 
 };
