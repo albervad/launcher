@@ -10,9 +10,10 @@ bool App::Cargar(const string& file)
     ifstream appFile;
     bool carga = false;
     const string user = string(getenv("username"));
-    
 
-    appFile.open("C:/Users/" + user + "/Documents/" + file + ".txt");
+    this->AppsFile = "C:/Users/" + user + "/Documents/" + file + ".txt";
+
+    appFile.open(this->AppsFile);
 
     if (appFile.is_open())
     {

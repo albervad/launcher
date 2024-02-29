@@ -298,6 +298,7 @@ public:
 	 *                     Window Texts with translations
 	 *
 	 */
+
     void retranslateUi(QMainWindow *launcherClass)
     {
         launcherClass->setWindowTitle(QCoreApplication::translate("launcherClass", "launcher", nullptr));

@@ -17,28 +17,32 @@ using namespace std;
 
 QString SetSteam();
 
+/*
+ *
+ *                              Window creation
+ *
+ */
+
 launcher::launcher(QWidget *parent)
     : QMainWindow(parent), isRunning(true)
 {
     ui.setupUi(this);
-    //------------------------------Make the window frameless
+    //                          Make the window frameless
     this->setWindowFlags(Qt::FramelessWindowHint);
-    QString state = SetSteam();
-    if ( state == "OFF\n") ui.SteamState->setChecked(true);
-    else ui.SteamState->setChecked(false);
-    hotkeyThread = std::thread(&launcher::f_showhide_shortcut, this);
-
+    //						    Update the Steam switch
+    updateSteamState();
+    //                          Shortcuts
+	hotkeyThread = std::thread(&launcher::f_showhide_shortcut, this);
+    //                          Tray Icon
     trayIcon = new QSystemTrayIcon(this);
     trayIcon->setIcon(QIcon(":/launcher/img/icono.ico"));
-
     QMenu* trayIconMenu = new QMenu(this);
     QAction* quitAction = new QAction(tr("&Quit"), this);
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
     trayIconMenu->addAction(quitAction);
-
     trayIcon->setContextMenu(trayIconMenu);
-
     trayIcon->show();
+    //						    Load Apps and Games
     App Apps, Games;
 
     if (Apps.Cargar("apps"))
@@ -57,12 +61,50 @@ launcher::launcher(QWidget *parent)
     }
 }
 
+/*
+ *
+ *                              Window Destructor
+ *
+ */
+
 launcher::~launcher()
 {
     isRunning = false;
     delete trayIcon;
 	hotkeyThread.join();
 }
+
+/*
+ *
+ *                              Steam Conection Switch Functions
+ *
+ */
+
+//						        Current state of the Steam Conection
+
+QString SetSteam()
+{
+    //Check if steam is online
+    QProcess process;
+    QStringList args = QStringList("if (((Get-NetFirewallRule -Displayname offlineSteam | select enabled) | where { $_.Enabled -eq $True } | measure ).Count -eq 2) {Write-Host \"ON\"} else {Write-Host \"OFF\"}");
+    process.start("powershell", args);
+    process.waitForFinished(-1);
+    QString state = process.readAllStandardOutput();
+    qDebug() << state;
+    return state;
+}
+
+//						        Update the Steam Conection Switch
+
+void launcher::updateSteamState() const
+{
+    QString state = SetSteam();
+    if (state == "OFF\n") ui.SteamState->setChecked(true);
+    else ui.SteamState->setChecked(false);
+
+}
+
+//						        Change the Steam Conection State
 
 void launcher::on_SteamState_clicked(bool checked) const
 {
@@ -85,6 +127,12 @@ void launcher::on_SteamState_clicked(bool checked) const
     else ui.SteamState->setChecked(!checked);
 }
 
+/*
+ *
+ *                              Navigation Functions
+ *
+ */
+
 void launcher::on_AppsButton_clicked() const
 {
     ui.Tabs->setCurrentIndex(0);
@@ -100,6 +148,12 @@ void launcher::on_SettingsButton_clicked() const
 	ui.Tabs->setCurrentIndex(2);
 }
 
+/*
+ *
+ *                              Settings Functions
+ *
+ */
+
 void launcher::on_AddAppButton_clicked() const
 {
 	QProcess process;
@@ -114,10 +168,18 @@ void launcher::on_AddGameButton_clicked() const
     process.waitForFinished(-1);
 }
 
+/*
+ *
+ *                              App and Game Buttons Creation Functions
+ *
+ */
+
 void launcher::Add_App_Button(const string& name, const string& dir, const string& args, const string& type, const int n, const int& cont)
 {
     QPushButton* Button = nullptr;
+    //                          Calculate the size of the grid
     int size = ceil(sqrt(cont));
+    //						    Add Button to the layout
     if (type == "Apps")
     {
         Button = new QPushButton(ui.Apps);
@@ -128,7 +190,7 @@ void launcher::Add_App_Button(const string& name, const string& dir, const strin
         Button = new QPushButton(ui.Games);
         ui.gridLayoutGames->addWidget(Button, n % size, n / size);
     }
-    
+    //						    Set Button properties
     Button->setObjectName(name + "Button");
     Button->setMinimumSize(QSize(150, 0));
     Button->setMaximumSize(QSize(150, 16777215));
@@ -136,8 +198,23 @@ void launcher::Add_App_Button(const string& name, const string& dir, const strin
     font.setWeight(QFont::DemiBold);
     font.setKerning(false);
     Button->setFont(font);
-
     Button->setText(QCoreApplication::translate("launcherClass", name.c_str(), nullptr));
+    Button->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+        "padding: 10px 15px;\n"
+        "background-color: #333333;\n"
+        "outline: 3px #333333 solid;\n"
+        "outline-offset: -3px;\n"
+        "border-radius: 5px;\n"
+        "border: none;\n"
+        "color: white;\n"
+        "font-weight: 600;\n"
+        "font-size: 14px;\n"
+        "}\n"
+        "QPushButton:hover {\n"
+        "background-color: white;\n"
+        "color: black;\n"
+        "}\n"));
+    //						    Set Button actions
     if (0 == dir.compare(dir.length() - 4, 4, ".exe"))
     {
     	connect(Button, &QPushButton::clicked, [dir, args]() {
@@ -168,36 +245,27 @@ void launcher::Add_App_Button(const string& name, const string& dir, const strin
             qDebug() << dir;
             });
     }
-
-    Button->setStyleSheet(QString::fromUtf8(
-    "QPushButton{\n"
-            "padding: 10px 15px;\n"
-            "background-color: #333333;\n"
-            "outline: 3px #333333 solid;\n"
-            "outline-offset: -3px;\n"
-            "border-radius: 5px;\n"
-            "border: none;\n"
-            "color: white;\n"
-            "font-weight: 600;\n"
-            "font-size: 14px;\n"
-        "}\n"
-        "QPushButton:hover {\n"
-            "background-color: white;\n"
-            "color: black;\n"
-        "}\n"));
 }
 
+/*
+ *
+ *                              Shortcuts Functions
+ *
+ */
+
+//						        Show/Hide the window with a shortcut
 void launcher::f_showhide_shortcut()
 {
+    // Register the hotkey
     if (!RegisterHotKey(NULL, 1, MOD_CONTROL| MOD_ALT | MOD_NOREPEAT, VK_F12))
     {
         qDebug() << "ERROR: Shorcut not registred properly";
     }
-
-    MSG msg = { 0 };
-    while (isRunning) // Check isRunning in the loop condition
+	MSG msg = { 0 };
+	// Check isRunning in the loop condition
+	while (isRunning) 
     {
-        while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0) // Use PeekMessage instead of GetMessage
+        while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
         {
             if (msg.message == WM_HOTKEY)
             {
@@ -210,13 +278,13 @@ void launcher::f_showhide_shortcut()
     UnregisterHotKey(NULL, 1);
 }
 
-
 void launcher::f_showhide()
 {
 	if (isHidden())
 	{
         activateWindow(); 
 		show();
+        //						  Center the window
         auto screenGeometry = QGuiApplication::primaryScreen()->geometry();
         int x = (screenGeometry.width() - this->geometry().width())/ 2;
         int y = (screenGeometry.height() -this->geometry().height())/ 2;
@@ -227,18 +295,4 @@ void launcher::f_showhide()
 	{
 		hide();
 	}
-}
-
-
-
-QString SetSteam()
-{
-	//Check if steam is online
-    QProcess process;
-    QStringList args = QStringList("if (((Get-NetFirewallRule -Displayname offlineSteam | select enabled) | where { $_.Enabled -eq $True } | measure ).Count -eq 2) {Write-Host \"ON\"} else {Write-Host \"OFF\"}");
-    process.start("powershell", args);
-    process.waitForFinished(-1);
-    QString state = process.readAllStandardOutput();
-    qDebug() << state;
-    return state;
 }

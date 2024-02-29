@@ -15,6 +15,7 @@ class launcher :
     Q_OBJECT
 
 public:
+    void updateSteamState() const;
     launcher(QWidget *parent = nullptr);
     ~launcher();
 
