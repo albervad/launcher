@@ -157,14 +157,18 @@ void launcher::on_SettingsButton_clicked() const
 void launcher::on_AddAppButton_clicked() const
 {
 	QProcess process;
-    process.startDetached("notepad");
+    const string user = string(getenv("username"));
+    string AppsFile = "C:/Users/" + user + "/Documents/apps.txt";
+    process.start("notepad", QStringList(QString::fromStdString(AppsFile)));
     process.waitForFinished(-1);
 }
 
 void launcher::on_AddGameButton_clicked() const
 {
-    QProcess process;
-    process.startDetached("notepad");
+	QProcess process;
+    const string user = string(getenv("username"));
+    string AppsFile = "C:/Users/" + user + "/Documents/games.txt";
+    process.start("notepad", QStringList(QString::fromStdString(AppsFile)));
     process.waitForFinished(-1);
 }
 
@@ -230,21 +234,14 @@ void launcher::Add_App_Button(const string& name, const string& dir, const strin
         process.waitForFinished(-1);
         });
 	}
-	else if (type == "Games")
+	else
 	{
 		connect(Button, &QPushButton::clicked, [dir]()
 		{
 			QDesktopServices::openUrl(QUrl(QString::fromStdString(dir), QUrl::TolerantMode));
 			qDebug() << dir;
-			});
+		});
 	}
-    else
-    {
-        connect(Button, &QPushButton::clicked, [dir]() {
-            QDesktopServices::openUrl(QUrl(QString::fromStdString("file:///" + dir), QUrl::TolerantMode));
-            qDebug() << dir;
-            });
-    }
 }
 
 /*

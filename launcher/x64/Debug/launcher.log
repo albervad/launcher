@@ -1,6 +1,5 @@
-﻿  moc launcher.h
-  apps.cpp
+﻿  apps.cpp
   launcher.cpp
   main.cpp
   moc_launcher.cpp
-LINK : fatal error LNK1168: cannot open C:\Users\vaduv\OneDrive\Documentos\Programación\Clase\launcher\x64\Debug\launcher.exe for writing
+  launcher.vcxproj -> C:\Users\vaduv\OneDrive\Documentos\Programación\Clase\launcher\x64\Debug\launcher.exe

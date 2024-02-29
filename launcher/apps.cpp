@@ -11,9 +11,9 @@ bool App::Cargar(const string& file)
     bool carga = false;
     const string user = string(getenv("username"));
 
-    this->AppsFile = "C:/Users/" + user + "/Documents/" + file + ".txt";
+    std::string AppsFile = "C:/Users/" + user + "/Documents/" + file + ".txt";
 
-    appFile.open(this->AppsFile);
+    appFile.open(AppsFile);
 
     if (appFile.is_open())
     {
