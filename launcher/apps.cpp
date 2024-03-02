@@ -2,36 +2,49 @@
 #include "launcher.h"
 #include <string>
 #include <fstream>
+#include <windows.h>
+#include <ShlObj.h>
 
 using namespace std;
+
+std::string wstring_to_string(const std::wstring& wstr)
+{
+	std::string str(wstr.begin(), wstr.end());
+	return str;
+}
 
 bool App::Cargar(const string& file)
 {
     ifstream appFile;
     bool carga = false;
-    const string user = string(getenv("username"));
+    PWSTR ppszPath;
+    HRESULT result = SHGetKnownFolderPath(FOLDERID_Documents, 0, NULL, &ppszPath);
 
-    std::string AppsFile = "C:/Users/" + user + "/Documents/" + file + ".txt";
-
-    appFile.open(AppsFile);
-
-    if (appFile.is_open())
+    if (result == S_OK)
     {
-    	string name;
-        getline(appFile, name, '\n');
+        string my_documents = wstring_to_string(ppszPath);
 
-        while (name != "XX")
-        {
-            this->name[this->numApps] = name;
-            getline(appFile, this->dir[this->numApps], '\n');
-            getline(appFile, this->args[this->numApps], '\n');
-			this->numApps++;
-            getline(appFile, name, '\n');
-        }
+        appFile.open(my_documents + "\\" + file + ".txt");
 
-        carga = true;
-        appFile.close();
+	    if (appFile.is_open())
+	    {
+    		string name;
+	        getline(appFile, name, '\n');
+
+	        while (name != "XX")
+	        {
+	            this->name[this->numApps] = name;
+	            getline(appFile, this->dir[this->numApps], '\n');
+	            getline(appFile, this->args[this->numApps], '\n');
+				this->numApps++;
+	            getline(appFile, name, '\n');
+	        }
+
+	        carga = true;
+	        appFile.close();
+	    }
     }
+
 
     return carga;
 }

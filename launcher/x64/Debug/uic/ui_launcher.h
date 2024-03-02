@@ -85,7 +85,10 @@ public:
         NavBar->setSizePolicy(sizePolicy);
         NavBar->setMaximumSize(QSize(16777215, 50));
         NavBar->setStyleSheet(QString::fromUtf8("QWidget {\n"
-		"	background-color: white;\n"
+        "   background-color: #121212;\n"
+        "   border: 1px solid #121212;\n"
+        "   border-top-left-radius: 15px;\n"
+        "   border-top-right-radius: 15px;\n"
 		"}"));
         horizontalLayout = new QHBoxLayout(NavBar);
         horizontalLayout->setSpacing(6);
@@ -107,7 +110,12 @@ public:
         sizePolicy1.setHeightForWidth(SteamState->sizePolicy().hasHeightForWidth());
         SteamState->setSizePolicy(sizePolicy1);
         SteamState->setMinimumSize(QSize(100, 26));
-        SteamState->setStyleSheet(QString::fromUtf8("QCheckBox::indicator {\n"
+        SteamState->setStyleSheet(QString::fromUtf8("QCheckBox{ \n"
+        "   background-color: #121212;\n"
+        "   border: 1px solid #121212; \n"
+        "   color: #F2F2F2\n"
+        "}\n"
+            "QCheckBox::indicator {\n"
 		"     width: 50px;\n"
 		"     height: 50px;\n"
 		" }\n"
@@ -135,17 +143,16 @@ public:
         AppsButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 			"font-weight: 600;\n"
 			"font-size: 14px;\n"
-			"color: #fff;\n"
-			"background-color: #0066CC;\n"
-			"border: 5px solid #0066cc;\n"
+			"color: #F2F2F2;\n"
+			"background-color: #333333;\n"
+			"border: 2px solid #222222;\n"
 			"border-radius: 1px;\n"
 			"text-transform: uppercase;\n"
 			"}\n"
 			"\n"
 			"QPushButton:hover {\n"
-			"background-color: #fff;\n"
-			"color: #0066cc;\n"
-			"border:  2px solid #0066cc;\n"
+			"background-color: #DCDCDC;\n"
+			"color: #333333;\n"
 			"}"));
 
         horizontalLayout->addWidget(AppsButton);
@@ -158,18 +165,17 @@ public:
         GamesButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 			"font-weight: 600;\n"
 			"font-size: 14px;\n"
-			"color: #fff;\n"
-			"background-color: #0066CC;\n"
-			"border: 5px solid #0066cc;\n"
+			"color: #F2F2F2;\n"
+			"background-color: #333333;\n"
+			"border: 2px solid #222222;\n"
 			"border-radius: 1px;\n"
 			"text-transform: uppercase;\n"
 			"}\n"
 			"\n"
 			"QPushButton:hover {\n"
-			"background-color: #fff;\n"
-			"color: #0066cc;\n"
-			"border:  2px solid #0066cc;\n"
-			"}"));
+			"background-color: #DCDCDC;\n"
+			"color: #333333;\n"
+            "}"));
 
         horizontalLayout->addWidget(GamesButton);
 
@@ -181,20 +187,20 @@ public:
         SettingButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 			"font-weight: 600;\n"
 			"font-size: 14px;\n"
-			"color: #fff;\n"
-			"background-color: #0066CC;\n"
-			"border: 5px solid #0066cc;\n"
+			"color: #F2F2F2;\n"
+			"background-color: #333333;\n"
+			"border: 2px solid #222222;\n"
 			"border-radius: 1px;\n"
 			"text-transform: uppercase;\n"
 			"}\n"
 			"\n"
 			"QPushButton:hover {\n"
-			"background-color: #fff;\n"
-			"color: #0066cc;\n"
-			"border:  2px solid #0066cc;\n"
-			"}"));
+			"background-color: #DCDCDC;\n"
+            "qproperty-icon: url(:/launcher/settings2.png)\n"
+			"color: #333333;\n"
+            "}"));
         SettingButton->setIcon(QIcon(":/launcher/settings.png"));
-        SettingButton->setIconSize(QSize(22, 22));
+        SettingButton->setIconSize(QSize(20, 20));
         horizontalLayout->addWidget(SettingButton);
 
 		/*
@@ -204,7 +210,12 @@ public:
         Tabs = new QStackedWidget(centralWidget);
         Tabs->setObjectName("Tabs");
         Tabs->setAutoFillBackground(false);
-        Tabs->setStyleSheet(QString::fromUtf8(""));
+        Tabs->setStyleSheet(QString::fromUtf8("QStackedWidget{"
+        "   background-color: #222222;\n"
+        "   border: 1px solid #121212;\n"
+        "   border-bottom-left-radius: 15px;\n"
+        "   border-bottom-right-radius: 15px;\n"
+		"}"));
         Tabs->setFrameShape(QFrame::NoFrame);
         Tabs->setFrameShadow(QFrame::Plain);
         Tabs->setCurrentIndex(0);
@@ -249,18 +260,18 @@ public:
         AddAppButton->setStyleSheet(QString::fromUtf8(
             "QPushButton{\n"
             "padding: 10px 15px;\n"
-            "background-color: #333333;\n"
-            "outline: 3px #333333 solid;\n"
+            "background-color: #444444;\n"
+            "outline: 3px #121212 solid;\n"
             "outline-offset: -3px;\n"
             "border-radius: 5px;\n"
             "border: none;\n"
-            "color: white;\n"
+            "color: #F2F2F2;\n"
             "font-weight: 600;\n"
             "font-size: 14px;\n"
             "}\n"
             "QPushButton:hover {\n"
-            "background-color: white;\n"
-            "color: black;\n"
+            "background-color: #DCDCDC;\n"
+            "color: #444444;\n"
             "}\n"));
         gridLayoutSettings->addWidget(AddAppButton, 0, 0);
 
@@ -273,18 +284,18 @@ public:
         AddGameButton->setStyleSheet(QString::fromUtf8(
             "QPushButton{\n"
             "padding: 10px 15px;\n"
-            "background-color: #333333;\n"
-            "outline: 3px #333333 solid;\n"
+            "background-color: #444444;\n"
+            "outline: 3px #121212 solid;\n"
             "outline-offset: -3px;\n"
             "border-radius: 5px;\n"
             "border: none;\n"
-            "color: white;\n"
+            "color: #F2F2F2;\n"
             "font-weight: 600;\n"
             "font-size: 14px;\n"
             "}\n"
             "QPushButton:hover {\n"
-            "background-color: white;\n"
-            "color: black;\n"
+            "background-color: #DCDCDC;\n"
+            "color: #444444;\n"
             "}\n"));
         gridLayoutSettings->addWidget(AddGameButton, 1, 0);
 

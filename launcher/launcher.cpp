@@ -29,6 +29,7 @@ launcher::launcher(QWidget *parent)
     ui.setupUi(this);
     //                          Make the window frameless
     this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setAttribute(Qt::WA_TranslucentBackground);
     //						    Update the Steam switch
     updateSteamState();
     //                          Shortcuts
@@ -205,18 +206,18 @@ void launcher::Add_App_Button(const string& name, const string& dir, const strin
     Button->setText(QCoreApplication::translate("launcherClass", name.c_str(), nullptr));
     Button->setStyleSheet(QString::fromUtf8("QPushButton{\n"
         "padding: 10px 15px;\n"
-        "background-color: #333333;\n"
-        "outline: 3px #333333 solid;\n"
+        "background-color: #444444;\n"
+        "outline: 3px #121212 solid;\n"
         "outline-offset: -3px;\n"
         "border-radius: 5px;\n"
         "border: none;\n"
-        "color: white;\n"
+        "color: #F2F2F2;\n"
         "font-weight: 600;\n"
         "font-size: 14px;\n"
         "}\n"
         "QPushButton:hover {\n"
-        "background-color: white;\n"
-        "color: black;\n"
+        "background-color: #DCDCDC;\n"
+        "color: #444444;\n"
         "}\n"));
     //						    Set Button actions
     if (0 == dir.compare(dir.length() - 4, 4, ".exe"))
