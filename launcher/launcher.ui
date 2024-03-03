@@ -190,6 +190,11 @@ border:  2px solid #0066cc;
          <property name="text">
           <string/>
          </property>
+         <property name="icon">
+          <iconset resource="launcher.qrc">
+           <normaloff>:/launcher/settings.png</normaloff>
+           <selectedon>:/launcher/settings2.png</selectedon>:/launcher/settings.png</iconset>
+         </property>
         </widget>
        </item>
       </layout>

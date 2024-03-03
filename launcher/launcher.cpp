@@ -2,7 +2,6 @@
 #include "apps.h"
 #include <QProcess>
 #include "./ui_launcher.h"
-#include <fstream>
 #include <QCloseEvent>
 #include <string>
 #include <windows.h>
@@ -22,6 +21,7 @@ QString SetSteam();
  *                              Window creation
  *
  */
+
 
 launcher::launcher(QWidget *parent)
     : QMainWindow(parent), isRunning(true)
@@ -60,6 +60,7 @@ launcher::launcher(QWidget *parent)
             Add_App_Button(Games.getName(i), Games.getDir(i), Games.getArgs(i), "Games", i, Games.getNumApps());
         }
     }
+
 }
 
 /*
@@ -204,21 +205,7 @@ void launcher::Add_App_Button(const string& name, const string& dir, const strin
     font.setKerning(false);
     Button->setFont(font);
     Button->setText(QCoreApplication::translate("launcherClass", name.c_str(), nullptr));
-    Button->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-        "padding: 10px 15px;\n"
-        "background-color: #444444;\n"
-        "outline: 3px #121212 solid;\n"
-        "outline-offset: -3px;\n"
-        "border-radius: 5px;\n"
-        "border: none;\n"
-        "color: #F2F2F2;\n"
-        "font-weight: 600;\n"
-        "font-size: 14px;\n"
-        "}\n"
-        "QPushButton:hover {\n"
-        "background-color: #DCDCDC;\n"
-        "color: #444444;\n"
-        "}\n"));
+    Button->setStyleSheet(ui.AddAppButton->styleSheet());
     //						    Set Button actions
     if (0 == dir.compare(dir.length() - 4, 4, ".exe"))
     {
@@ -286,8 +273,9 @@ void launcher::f_showhide()
         auto screenGeometry = QGuiApplication::primaryScreen()->geometry();
         int x = (screenGeometry.width() - this->geometry().width())/ 2;
         int y = (screenGeometry.height() -this->geometry().height())/ 2;
-        qDebug() << x << " "<< y << "\n";
         this->move(x, y);
+        QCursor cursor;
+        cursor.setPos(x + this->geometry().width() / 2, y + this->geometry().height() / 2);
 	}
 	else
 	{

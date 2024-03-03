@@ -13,6 +13,23 @@ std::string wstring_to_string(const std::wstring& wstr)
 	return str;
 }
 
+App::App()
+{
+	name = new std::string[50];
+	dir = new std::string[50];
+	args = new std::string[50];
+	numApps = 0;
+}
+
+App::~App()
+{
+	delete[] name;
+	delete[] dir;
+	delete[] args;
+	numApps = 0;
+}
+
+
 bool App::Cargar(const string& file)
 {
     ifstream appFile;

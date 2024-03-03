@@ -4,11 +4,13 @@
 class App
 {
 private:
-	std::string name[50];
-	std::string dir[50];
-	std::string args[50];
-	int numApps = 0;
+	std::string* name;
+	std::string* dir;
+	std::string* args;
+	int numApps;
 public:
+	App();
+	~App();
 	bool Cargar(const std::string& file);
 	std::string getName(int n) const;
 	std::string getDir(int n) const;
