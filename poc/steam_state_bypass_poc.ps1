@@ -1,17 +1,21 @@
 ﻿<#
 .SYNOPSIS
-    PoC: Event-Driven State Validation Bypass via Selective Host-Firewall Isolation (Legacy Steam Family Sharing)
+    PoC Académica: Estudio de Sincronización de Estado Cliente-Servidor mediante Firewall Local (Sistema Legacy)
 .DESCRIPTION
-    Prueba de concepto educativa (investigación histórica sobre el antiguo sistema de Steam Family Sharing).
-    Demuestra cómo el bloqueo selectivo de tráfico entrante/saliente del ejecutable del cliente (steam.exe)
-    tras la sincronización inicial de estado impide la recepción de eventos push de invalidación de biblioteca,
-    congelando en caché local el último estado válido ("Disponible") sin afectar la conectividad del resto del SO.
+    AVISO LEGAL Y ÉTICO (ACADEMIC & ETHICAL DISCLAIMER):
+    Este script se proporciona exclusivamente con fines educativos, académicos y de investigación
+    en arquitectura de software y seguridad defensiva/ofensiva ética (estudio de CWE-840 / CWE-602
+    sobre el antiguo sistema retirado de Steam Family Sharing).
+    - No modifica binarios, no inyecta código en memoria ni vulnera mecanismos criptográficos o DRM.
+    - Únicamente gestiona reglas estándar del Firewall de Windows en el propio equipo local del usuario
+      para estudiar el comportamiento de una aplicación ante la pérdida de notificaciones push de red.
+    - El autor no respalda ni promueve el incumplimiento de los Términos de Servicio (ToS) de ninguna plataforma.
 .PARAMETER Mode
-    - Install : Crea las reglas de firewall (Inbound y Outbound) para steam.exe (deshabilitadas por defecto).
-    - Isolate : Activa las reglas (congela el estado actual de sesión de Steam cortando sus sockets).
-    - Restore : Desactiva las reglas (restaura la sincronización de estado con los servidores).
-    - Status  : Muestra si el aislamiento de estado está activo (ON) o inactivo (OFF).
-    - Remove  : Elimina las reglas creadas del Firewall de Windows.
+    - Install : Crea las reglas de firewall (Inbound y Outbound) en estado deshabilitado.
+    - Isolate : Activa las reglas de aislamiento de red para el proceso seleccionado.
+    - Restore : Desactiva las reglas y restaura la conectividad normal del proceso.
+    - Status  : Muestra si las reglas de laboratorio están activas (ON) o inactivas (OFF).
+    - Remove  : Elimina por completo las reglas de prueba del Firewall de Windows.
 #>
 
 [CmdletBinding()]
@@ -40,9 +44,9 @@ function Get-IsolationStatus {
     }
     $activeCount = ($rules | Where-Object { $_.Enabled -eq "True" } | Measure-Object).Count
     if ($activeCount -ge 2) {
-        Write-Host "[+] Aislamiento de estado: ON (Estado de sesión congelado / Tráfico de steam.exe bloqueado)" -ForegroundColor Green
+        Write-Host "[+] Reglas de aislamiento local: ON (Tráfico del proceso bloqueado en Firewall)" -ForegroundColor Green
     } else {
-        Write-Host "[-] Aislamiento de estado: OFF (Sincronización normal con servidores activa)" -ForegroundColor Cyan
+        Write-Host "[-] Reglas de aislamiento local: OFF (Sincronización de red normal activa)" -ForegroundColor Cyan
     }
 }
 
@@ -52,20 +56,20 @@ if ($Mode -eq "Status") {
 }
 
 if (-not (Test-Administrator)) {
-    Write-Error "Este modo ('$Mode') requiere privilegios de Administrador para modificar Windows Filtering Platform / Firewall."
+    Write-Error "El modo '$Mode' requiere privilegios de Administrador para gestionar reglas del Firewall de Windows."
     exit 1
 }
 
 switch ($Mode) {
     "Install" {
         if (-not (Test-Path $SteamPath)) {
-            Write-Error "No se encontró steam.exe en '$SteamPath'. Especifica la ruta con -SteamPath."
+            Write-Error "No se encontró el ejecutable en '$SteamPath'. Especifica la ruta con -SteamPath."
             exit 1
         }
         Remove-NetFirewallRule -DisplayName $RuleDisplayName -ErrorAction SilentlyContinue
         New-NetFirewallRule -DisplayName $RuleDisplayName -Direction Inbound  -Program $SteamPath -Action Block -Profile Any -Enabled False | Out-Null
         New-NetFirewallRule -DisplayName $RuleDisplayName -Direction Outbound -Program $SteamPath -Action Block -Profile Any -Enabled False | Out-Null
-        Write-Host "[+] Reglas Inbound/Outbound '$RuleDisplayName' creadas para: $SteamPath" -ForegroundColor Green
+        Write-Host "[+] Reglas Inbound/Outbound '$RuleDisplayName' creadas (deshabilitadas por defecto) para: $SteamPath" -ForegroundColor Green
         Get-IsolationStatus
     }
     "Isolate" {
@@ -78,6 +82,6 @@ switch ($Mode) {
     }
     "Remove" {
         Remove-NetFirewallRule -DisplayName $RuleDisplayName -ErrorAction SilentlyContinue
-        Write-Host "[*] Reglas '$RuleDisplayName' eliminadas correctamente." -ForegroundColor Yellow
+        Write-Host "[*] Reglas de prueba '$RuleDisplayName' eliminadas correctamente." -ForegroundColor Yellow
     }
 }
